@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Footer from "../layout/Footer";
 import sanityClient from "../sanity";
 import CategoryComponent from "./CategoryComponent";
 import FeaturedCategoryRow from "./FeaturedCategoryRow";
+import TrackOrdersJumbo from "./TrackOrdersJumbo";
 
 export default function HomeComponent() {
   const [featuredCategories, setFeaturedCategories] = useState([]);
@@ -28,7 +30,10 @@ export default function HomeComponent() {
 
   return (
     <div className="m-4">
+      {/* categories */}
       <CategoryComponent />
+      
+      {/* featured categories */}
       {featuredCategories.map((category) => (
         <FeaturedCategoryRow
           key={category._id}
@@ -37,6 +42,12 @@ export default function HomeComponent() {
           description={category.short_description}
         />
       ))}
+
+      {/* jumbotron track orders */}
+      <TrackOrdersJumbo />
+
+      {/* footer */}
+      <Footer />
     </div>
   );
 }

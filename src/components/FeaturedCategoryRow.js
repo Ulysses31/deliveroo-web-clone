@@ -31,7 +31,7 @@ export default function FeaturedCategoryRow({ id, title, description }) {
 
   return (
     <div className="bg-white rounded shadow mt-4 p-4">
-      <p className="font-bold text-lg">{title}</p>
+      <p className="font-bold text-2xl">{title}</p>
       <p className="text-sm text-gray-500">{description}</p>
       <div className="xs:overflow-x-auto">
         <div className="flex flex-col xs:flex-row -mx-2 xs:w-max">

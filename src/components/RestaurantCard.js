@@ -1,6 +1,7 @@
 import React from "react";
 import { urlFor } from "../sanity";
 import { FaStar, FaMapMarkerAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function RestaurantCard({
   id,
@@ -14,8 +15,17 @@ export default function RestaurantCard({
   long,
   lat,
 }) {
+  const navigate = useNavigate();
+
+  const handleRestaurantRedirect = (id) => {
+    navigate(`./restaurant/${id}`);
+  };
+
   return (
-    <div className="bg-white my-4 mx-2 rounded shadow-lg">
+    <div
+      className="bg-white my-4 mx-2 rounded shadow-lg cursor-pointer xs:w-56"
+      onClick={() => handleRestaurantRedirect(id)}
+    >
       <img
         src={urlFor(imgUrl).url()}
         alt={title}

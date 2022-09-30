@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: []
+  items: [],
 };
 
 export const basketSlice = createSlice({
@@ -11,6 +11,8 @@ export const basketSlice = createSlice({
     addToBasket: (state, action) => {
       // console.log(state, action);
       state.items = [...state.items, action.payload];
+
+      sessionInsert(state.items);
     },
     removeFromBasket: (state, action) => {
       // console.log(state, action);
@@ -22,19 +24,25 @@ export const basketSlice = createSlice({
         newBasket.splice(indx, 1);
       }
       state.items = newBasket;
+
+      sessionInsert(state.items);
+    },
+    cleanBasket: (state) => {
+      state.items = [];
+      sessionInsert([]);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToBasket, removeFromBasket } = basketSlice.actions;
+export const { addToBasket, removeFromBasket, cleanBasket } = basketSlice.actions;
 
 // Selectors
 export const selectBasketItems = (state) => state.basket.items;
 
 export const selectBasketTotalPrice = (state) =>
   state.basket.items.reduce((total, item) => {
-    return total += parseFloat(item.price);
+    return (total += parseFloat(item.price));
   }, 0);
 
 export const selectBasketItemsById = (state, id) =>
@@ -49,6 +57,11 @@ export const selectBasketItemTotalPrice = (state, id) => {
     return total;
   });
   return total;
+};
+
+// General
+const sessionInsert = (items) => {
+  sessionStorage.setItem("basket-items", JSON.stringify(items));
 };
 
 export default basketSlice.reducer;
